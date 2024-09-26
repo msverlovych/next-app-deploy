@@ -1,0 +1,25 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    container_name: n_c_v1
+    image: maxsverlovych/next-app-deploy:image_v2
+    ports:
+      - 3000:3000
+    environment:
+      NEXT_PUBLIC_DOMAIN: http://127.0.0.1:3000
+      NEXT_PUBLIC_BASE_URL: http://localhost:3000
+      NEXT_PUBLIC_API: https://fakestoreapi.com/products
+    networks:
+      - next-app-deploy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000 || exit 1"]
+      interval: 30s
+      retries: 3
+      start_period: 30s
+      timeout: 10s
+      
+networks:
+  next-app-deploy:
+    external: true

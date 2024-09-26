@@ -56,6 +56,12 @@
   font-weight: 600;
 }
 
+.mainTitle {
+  padding: 1rem 0;
+  font-size: 3rem;
+  text-align: center;
+}
+
 .ctas {
   display: flex;
   gap: 16px;
@@ -157,6 +163,7 @@ a.secondary {
     justify-content: center;
   }
 }
+
 
 @media (prefers-color-scheme: dark) {
   .logo {

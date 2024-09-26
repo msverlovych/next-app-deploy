@@ -1,0 +1,15 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: n_c_v1
+    image: maxsverlovych/next-app-deploy:image_prod_v2.0
+    ports:
+      - "3000:3000"
+    networks:
+      - next-app-deploy
+
+networks:
+  next-app-deploy:
+    external: true

@@ -17,11 +17,38 @@ body {
 }
 
 body {
+  position: relative;
+  min-height: 100vh;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(150px);
+  z-index: 0; /* Ensure it's behind the content */
+}
+
+body::before {
+  width: 700px;
+  height: 700px;
+  top: -200px;
+  left: -200px;
+  background: radial-gradient(circle, rgb(194, 57, 137) 0%, rgba(255, 0, 255, 0) 80%);
+}
+
+body::after {
+  width: 700px;
+  height: 700px;
+  bottom: -200px;
+  right: -200px;
+  background: radial-gradient(circle, rgba(0, 176, 255, 1) 0%, rgba(0, 255, 255, 0) 80%);
 }
 
 * {
@@ -33,6 +60,55 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  z-index: 1;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Light border */
+  padding: 20px;
+  border-radius: 20px; /* Smooth corners */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(20px); /* Blurred background (frosted glass effect) */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* Deep shadow for elevation */
+  color: #fff; /* Text color to contrast background */
+  text-align: center;
+}
+
+
+.product-image {
+  border-radius: 10px;
+}
+
+.product-details {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.product-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.product-description {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0070f3;
 }
 
 @media (prefers-color-scheme: dark) {

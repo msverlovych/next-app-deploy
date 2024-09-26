@@ -1,50 +1,38 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-export default function Home() {
+async function fetchProduct() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API}/1`);
+  if (!res.ok) throw new Error('Failed to fetch data');
+  
+  return res.json();
+}
+
+export default async function Home() {
+  const product = await fetchProduct();
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
-        </div>
+        <section id="home">
+          <div className="container">
+            <h1 className={styles.mainTitle}>Next App Deploy</h1>
+            <div className="product-card">
+              <Image
+                src={product.image}
+                alt={product.title}
+                width={300}
+                height={300}
+                className="product-image"
+              />
+              <div className="product-details">
+                <h1 className="product-title">{product.title}</h1>
+                <p className="product-description">{product.description}</p>
+                <p className="product-price">${product.price}</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
       <footer className={styles.footer}>
         <a

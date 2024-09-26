@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+  app:
+    image: maxsverlovych/next-app-deploy:image_prod_v2.0
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    networks:
+      - next-app-deploy
+    secrets:
+      - NEXT_PUBLIC_API
+  nginx:
+    image: nginx:stable-alpine3.20-perl
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "80:80"
+    volumes:
+      - /opt/www/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    networks:
+      - next-app-deploy
+
+secrets:
+  NEXT_PUBLIC_API: 
+    external: true
+
+networks:
+  next-app-deploy:
+    external: true
