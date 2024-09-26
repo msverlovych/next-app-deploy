@@ -4,7 +4,6 @@ services:
   app:
     image: maxsverlovych/next-app-deploy:image_prod_v2.0
     deploy:
-      replicas: 2
       restart_policy:
         condition: on-failure
     networks:
@@ -14,7 +13,6 @@ services:
   nginx:
     image: nginx:stable-alpine3.20-perl
     deploy:
-      replicas: 1
       restart_policy:
         condition: on-failure
     ports:
